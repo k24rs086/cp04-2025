@@ -192,7 +192,17 @@
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e){
-        active = false;
+        if(active){
+            paused = true;
+            active = false;
+            pausedtime = etime;
+        
+        }else if(paused){
+            paused = false;
+            active = true;
+            starttime = new data(new data() - pausedtime * 1000);
+        }
+
         
         
     }
@@ -205,7 +215,7 @@
         $("#time").html("経過時間： 0");
         $("#remain").html("残り時間： " + period);
         $("#btnA").prop("disabled", false);
-        $("#btnB").prop("disabled", true);
+        $("#btnB").prop("disabled", false);
         
         
 
@@ -239,7 +249,7 @@
     <div id="remain">Remaining time</div>
     <div id="time">Time</div>
     <button id="btnA">Start</button>  
-    <button id="btnB">Stop</button>  
+    <button id="btnB">Stop/ReStart</button>  
     <button id="btnC">Set</button>  
     <input type="number" id="minute" value=0 >
     <input type="number" id="second" value=15 >
